@@ -17,8 +17,7 @@ Usage:
 1. DOWNLOAD FROM DISCOVER AS .CSV FILE
 2. in the downloaded directory, run discover.py passing in that downloaded
 file, redirecting output to YYYYMMDD.csv
-3. open the converted csv in OpenOffice and paste the cells into existing 
-spreadsheet.
+3. open the converted csv in OpenOffice and paste the cells into existing spreadsheet.
 
 EXAMPLE:
 ...\data\finance\statements>python \this\path\discover.py -f Discover-Statement-20110502.csv > 20110502.csv
