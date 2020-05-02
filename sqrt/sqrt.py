@@ -59,10 +59,10 @@ def next_group(working, prev):
     return current, working[2:]
 
 
-def next_digit(current, base):
+def next_digit(current, ans_sofar):
     # brute force try each digit from 9 to 0 until correct one found
     for try_digit in range(9,-1,-1):
-        first = base * MULTIPLIER * 10 + try_digit
+        first = ans_sofar * MULTIPLIER * 10 + try_digit
         second = try_digit
         result = first*second
         if result <= current:

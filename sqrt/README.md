@@ -4,21 +4,22 @@ Explanation
 ===========
 
 ```
-A.
+A. Find the square root of 5 (input=5)
  ___
 √ 5  <--- n
 
 
-B.
+B. "zeroize" the input
  ____
 √ 05 .  <--- base = ['0','5','.']
 
 
 C.
 
-current = 5
+current = 5 (i.e. 05)
 base = ['.']
 
+first digit is the largest x such that x*x < 5
 
    2 <--- digit (next char)
  ________
@@ -29,7 +30,8 @@ base = ['.']
 
 D.
 
-head of base is decimal point 
+head of base is now at decimal point, so the next
+character in the answer is the decimal point 
 
    2. <---- next char 
  ________
@@ -39,28 +41,28 @@ head of base is decimal point
    1 
 
 
-E.
+E. base is now empty, which implies endless pairs of 00
+
+next_group(base=[], working=1) ==>
+
+current = 1 * 100 + 00 = 100
 
 base = []
 answer = 2
 
    2. 
  ________
-√ 05 . 00        (00 is implied once base is empty) 
--  4    |
-----    v
+√ 05 . 00         
+-  4    |        (each step, bring down the next two from base
+----    v        (or 00 once base is empty)
    1   00     <-- current
 
-next_group([], 1) ==>
-
-base is now empty
-current = 1 * 100 + 00 = 100
 
 F. 
 
 next_digit(100, 2) ==>
 
-first multiplier = base * 2 * 10 + try_digit = 4?
+first multiplier = ans_sofar * 2 * 10 + try_digit = 4?
 second multiplier = try_digit = ?
 
 next digit = largest ? such that 4? * ? < 100 (i.e. current)
@@ -83,9 +85,9 @@ answer is now 22
 
 G. 
 
-next_digit(current=1600, base=22) ==>
+next_digit(current=1600, ans_sofar=22) ==>
 
-first multiplier = base * 2 * 10 + try_digit = 44?
+first multiplier = ans_sofar * 2 * 10 + try_digit = 44?
 second multiplier = try_digit = ?
 
 next digit = largest ? such that 44? * ? < 1600 (i.e. current) 
@@ -112,9 +114,9 @@ answer: 223
 
 H. 
 
-next_digit(current=27100, base=223) ==>
+next_digit(current=27100, ans_sofar=223) ==>
 
-first multiplier = base * 2 * 10 + try_digit = 446?
+first multiplier = ans_sofar * 2 * 10 + try_digit = 446?
 second multiplier = try_digit = ?
 
 next digit = largest ? such that 446? * ? < 27100 (i.e. current) 
