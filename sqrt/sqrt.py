@@ -85,6 +85,8 @@ def root(n, size):
 
         answer = answer*10 + digit
         working = current - result
+        if working == 0 and not base:
+            break
 
     return answer, chars
 
