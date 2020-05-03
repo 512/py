@@ -13,31 +13,16 @@ import datetime
 
 DECIMAL_POINT = '.'
 
-def get_input():
-    n = None
-    size = None
-
-    args = sys.argv
-    if len(args) > 1:
-        n = sys.argv[1]
-    if len(args) > 2:
-        size = int(sys.argv[2])
-
-    if not n:
-        n = input("Square root of ? ")
-    if not size:
-        size = int(input("Number of digits: "))
-
-    return n, size
-
 
 def odd_length(lst):
     return 1 == len(lst) % 2
 
+
 def ceil_div(a, b):
     # integer division with ceiling
     # ref: https://python-history.blogspot.com/2010/08/why-pythons-integer-division-floors.html
-    return -(-a // b)
+    return -(a // -b)
+
 
 def group_into_pairs(n):
     """
@@ -67,6 +52,7 @@ def group_into_pairs(n):
     if odd_length(after):
         lst.append(str(0))
     return lst
+
 
 def current_from_next_pair(lst, previous_remainder):
     """
@@ -126,6 +112,7 @@ def find_next_digit(current, partial):
     print("Unexpected state in find_next_digit")
     sys.exit(1)
 
+
 def find_root(n, num_digits):
     answer_so_far = []
     partial_root = 0
@@ -151,13 +138,34 @@ def find_root(n, num_digits):
 
     return partial_root, answer_so_far
 
+
+def get_input():
+    n = None
+    size = None
+
+    args = sys.argv
+    if len(args) > 1:
+        n = sys.argv[1]
+    if len(args) > 2:
+        size = int(sys.argv[2])
+
+    if not n:
+        n = input("Square root of ? ")
+    if not size:
+        size = int(input("Number of digits: "))
+
+    return n, size
+
+
 def output(lst):
     print("".join(lst))
+
 
 def output_with_breaks(lst, line_size=80):
     while lst:
         output(lst[:line_size])
         lst = lst[line_size:]
+
 
 def main():
     n, size = get_input()
