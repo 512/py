@@ -23,12 +23,13 @@ adding decimal point and zeros as needed
 
 ### C. first iteration
 
+```
 current = 5 (i.e. 05)
 pairs = ['.']
 
 first digit is the largest x such that x*x < 5
 
-```
+
    2 <--- digit (answer_so_far)
  ________
 √ 05 . 
@@ -38,12 +39,15 @@ first digit is the largest x such that x*x < 5
 
 ```
 
-### D. handle the decimal point 
+### D. handle the decimal point
+
+```
+pairs = ['.'] 
 
 head of pairs is now at decimal point, so the next
 character in the answer is the decimal point 
 
-```
+
    2. <---- answer_so_far
  ________
 √ 05 . 
@@ -53,6 +57,8 @@ character in the answer is the decimal point
 ```
 
 ### E. pairs is now empty, which implies endless pairs of 00
+
+pairs = []
 
 current_from_next_pair(pairs=[], remainder=1) ==>
 
