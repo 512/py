@@ -3,71 +3,83 @@
 Explanation
 ===========
 
+
+### A. Find the square root of 5 (input=5)
+
 ```
-A. Find the square root of 5 (input=5)
  ___
 √ 5  <--- n
+```
 
+### B. group the input into pairs of digits
 
-B. "zeroize" the input
+adding decimal point and zeros as needed
+
+```
  ____
-√ 05 .  <--- base = ['0','5','.']
+√ 05 .  <--- pairs = ['0','5','.']
 
+```
 
-C.
+### C. first iteration
 
 current = 5 (i.e. 05)
-base = ['.']
+pairs = ['.']
 
 first digit is the largest x such that x*x < 5
 
-   2 <--- digit (next char)
+```
+   2 <--- digit (answer_so_far)
  ________
 √ 05 . 
 -  4   <---- result
 ----    
-   1   <--- working = 5 - 4 = 1
+   1   <--- remainder = 5 - 4 = 1
 
-D.
+```
 
-head of base is now at decimal point, so the next
+### D. handle the decimal point 
+
+head of pairs is now at decimal point, so the next
 character in the answer is the decimal point 
 
-   2. <---- next char 
+```
+   2. <---- answer_so_far
  ________
 √ 05 . 
 -  4  
 ----    
    1 
+```
 
+### E. pairs is now empty, which implies endless pairs of 00
 
-E. base is now empty, which implies endless pairs of 00
+current_from_next_pair(pairs=[], remainder=1) ==>
 
-next_group(base=[], working=1) ==>
-
-current = 1 * 100 + 00 = 100
-
-base = []
-answer = 2
-
+```
    2. 
  ________
 √ 05 . 00         
--  4    |        (each step, bring down the next two from base
-----    v        (or 00 once base is empty)
+-  4    |        (each step, bring down the next two from pairs
+----    v        (or 00 once pairs is empty)
    1   00     <-- current
 
+current = 1 * 100 + 00 = 100
+partial_root = 2 (ignoring decimal point)
+```
 
-F. 
+### F. next iteration
 
-next_digit(100, 2) ==>
+find_next_digit(100, 2) ==>
 
-first multiplier = ans_sofar * 2 * 10 + try_digit = 4?
-second multiplier = try_digit = ?
+```
+p = 2
+c = 100
+let y = (20p + x) * x
 
-next digit = largest ? such that 4? * ? < 100 (i.e. current)
+find greatest value of x such that y <= c
 
-which is 2
+x = 2
 
 result = 84 (42 * 2)
 
@@ -77,22 +89,24 @@ result = 84 (42 * 2)
 -  4    |
 ----    v
    1   00  
-       84
+ -     84
    ------
-       16 <--- working
-       
-answer is now 22
+       16 <--- remainder       
+```
+partial_root is now 22
 
-G. 
+### G. another iteration
 
-next_digit(current=1600, ans_sofar=22) ==>
+next_digit(current=1600, partial=22) ==>
 
-first multiplier = ans_sofar * 2 * 10 + try_digit = 44?
-second multiplier = try_digit = ?
+```
+p = 22
+c = 1600
+let y = (20p + x) * x
 
-next digit = largest ? such that 44? * ? < 1600 (i.e. current) 
+find greatest value of x such that y <= c
 
-which is 3
+x = 3
 
 result = 1329 (443 * 3)
 
@@ -102,28 +116,30 @@ result = 1329 (443 * 3)
 -  4    |
 ----    v
    1   00  
-   -   84
+ -     84
    ------
        16 00
     -  13 29
     --------
-        2 71  <--- working
-            
-answer: 223
+        2 71  <--- remainder
+```
+partial_root: 223
 
+### H. another iteration
 
-H. 
+next_digit(current=27100, partial=223) ==>
 
-next_digit(current=27100, ans_sofar=223) ==>
+```
+p = 223
+c = 27100
+let y = (20p + x) * x
 
-first multiplier = ans_sofar * 2 * 10 + try_digit = 446?
-second multiplier = try_digit = ?
+find greatest value of x such that y <= c
 
-next digit = largest ? such that 446? * ? < 27100 (i.e. current) 
-
-which is 6
+x = 6
 
 result = 26,796 (4466 * 6)
+
 
    2.   2  3  6
  ______________
@@ -131,7 +147,7 @@ result = 26,796 (4466 * 6)
 -  4    
 ----    
    1   00  
-   -   84
+ -     84
    ------
        16 00
     -  13 29
@@ -139,8 +155,15 @@ result = 26,796 (4466 * 6)
         2 71 00
      -  2 67 96
         -------
-           3 04 <-- working
-            
-answer: 2236
+           3 04 <-- remainder
+```
+partial: 2236
 
-And so on ...
+### I. repeat iterations ad infinitum ...
+
+```
+2.236067977499789696409173668731276235440618359611525724270897245410520925637804
+89941441440837878227496950817615077378350425326772444707386358636012153345270886
+67781731918791658112766453226398565805357613504175337850034233924140644420864325
+39097252592627228876299517402440681611775908909498492371390729728898482 ...
+```
